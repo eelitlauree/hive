@@ -4891,7 +4891,7 @@ public class ObjectStore implements RawStore, Configurable {
     boolean committed = false;
 
     if (dbName == null) {
-      dbName = MetaStoreUtils.DEFAULT_DATABASE_NAME;
+      dbName = HiveConf.DEFAULT_DATABASE_NAME;
     }
 
     if (tableName == null || colName == null) {
@@ -5001,7 +5001,7 @@ public class ObjectStore implements RawStore, Configurable {
     MPartitionColumnStatistics mStatsObj = null;
 
     if (dbName == null) {
-      dbName = MetaStoreUtils.DEFAULT_DATABASE_NAME;
+      dbName = HiveConf.DEFAULT_DATABASE_NAME;
     }
 
     if (tableName == null || partVal == null || colName == null) {
@@ -5072,7 +5072,7 @@ public class ObjectStore implements RawStore, Configurable {
     boolean ret = false;
 
     if (dbName == null) {
-      dbName = MetaStoreUtils.DEFAULT_DATABASE_NAME;
+      dbName = HiveConf.DEFAULT_DATABASE_NAME;
     }
 
     if (tableName == null) {
@@ -5160,7 +5160,7 @@ public class ObjectStore implements RawStore, Configurable {
     boolean ret = false;
 
     if (dbName == null) {
-      dbName = MetaStoreUtils.DEFAULT_DATABASE_NAME;
+      dbName = HiveConf.DEFAULT_DATABASE_NAME;
     }
 
     if (tableName == null) {

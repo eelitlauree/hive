@@ -1,0 +1,186 @@
+Saving all output to "!!{outputDirectory}!!/describe_table.q.raw". Enter "record" with no arguments to stop it.
+>>>  !run !!{qFileDirectory}!!/describe_table.q
+>>>  describe srcpart;
+'col_name','data_type','comment'
+'key','string',''
+'value','string',''
+'ds','string',''
+'hr','string',''
+4 rows selected 
+>>>  describe srcpart.key;
+'col_name','data_type','comment'
+'key','string','from deserializer'
+1 row selected 
+>>>  describe srcpart PARTITION(ds='2008-04-08', hr='12');
+'col_name','data_type','comment'
+'key','string',''
+'value','string',''
+'ds','string',''
+'hr','string',''
+4 rows selected 
+>>>  
+>>>  describe extended srcpart;
+'col_name','data_type','comment'
+'key','string',''
+'value','string',''
+'ds','string',''
+'hr','string',''
+'','NULL','NULL'
+'Detailed Table Information','Table(tableName:srcpart, dbName:describe_table, owner:!!{user.name}!!, createTime:!!UNIXTIME!!, lastAccessTime:0, retention:0, sd:StorageDescriptor(cols:[FieldSchema(name:key, type:string, comment:null), FieldSchema(name:value, type:string, comment:null), FieldSchema(name:ds, type:string, comment:null), FieldSchema(name:hr, type:string, comment:null)], location:!!{hive.metastore.warehouse.dir}!!/describe_table.db/srcpart, inputFormat:org.apache.hadoop.mapred.TextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format=1}), bucketCols:[], sortCols:[], parameters:{}, skewedInfo:SkewedInfo(skewedColNames:[], skewedColValues:[], skewedColValueLocationMaps:{}), storedAsSubDirectories:false), partitionKeys:[FieldSchema(name:ds, type:string, comment:null), FieldSchema(name:hr, type:string, comment:null)], parameters:{numFiles=4, numPartitions=4, !!{numRows}!!, !!{rawDataSize}!!, !!{totalSize}!!, transient_lastDdlTime=!!UNIXTIME!!}, viewOriginalText:null, viewExpandedText:null, tableType:MANAGED_TABLE)',''
+6 rows selected 
+>>>  describe extended srcpart.key;
+'col_name','data_type','comment'
+'key','string','from deserializer'
+1 row selected 
+>>>  describe extended srcpart PARTITION(ds='2008-04-08', hr='12');
+'col_name','data_type','comment'
+'key','string',''
+'value','string',''
+'ds','string',''
+'hr','string',''
+'','NULL','NULL'
+'Detailed Partition Information','Partition(values:[2008-04-08, 12], dbName:describe_table, tableName:srcpart, createTime:!!UNIXTIME!!, lastAccessTime:0, sd:StorageDescriptor(cols:[FieldSchema(name:key, type:string, comment:null), FieldSchema(name:value, type:string, comment:null), FieldSchema(name:ds, type:string, comment:null), FieldSchema(name:hr, type:string, comment:null)], location:!!{hive.metastore.warehouse.dir}!!/describe_table.db/srcpart/ds=2008-04-08/hr=12, inputFormat:org.apache.hadoop.mapred.TextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format=1}), bucketCols:[], sortCols:[], parameters:{}, skewedInfo:SkewedInfo(skewedColNames:[], skewedColValues:[], skewedColValueLocationMaps:{}), storedAsSubDirectories:false), parameters:{numFiles=1, transient_lastDdlTime=!!UNIXTIME!!, !!{numRows}!!, !!{totalSize}!!, !!{rawDataSize}!!})',''
+6 rows selected 
+>>>  
+>>>  describe formatted srcpart;
+'col_name','data_type','comment'
+'# col_name            ','data_type           ','comment             '
+'','NULL','NULL'
+'key                 ','string              ','None                '
+'value               ','string              ','None                '
+'','NULL','NULL'
+'# Partition Information','NULL','NULL'
+'# col_name            ','data_type           ','comment             '
+'','NULL','NULL'
+'ds                  ','string              ','None                '
+'hr                  ','string              ','None                '
+'','NULL','NULL'
+'# Detailed Table Information','NULL','NULL'
+'Database:           ','describe_table      ','NULL'
+'Owner:              ','!!{user.name}!!','NULL'
+'CreateTime:         ','!!TIMESTAMP!!','NULL'
+'LastAccessTime:     ','UNKNOWN             ','NULL'
+'Protect Mode:       ','None                ','NULL'
+'Retention:          ','0                   ','NULL'
+'Location:           ','!!{hive.metastore.warehouse.dir}!!/describe_table.db/srcpart','NULL'
+'Table Type:         ','MANAGED_TABLE       ','NULL'
+'Table Parameters:','NULL','NULL'
+'','numFiles            ','4                   '
+'','numPartitions       ','4                   '
+'','numRows             ','0                   '
+'','rawDataSize         ','0                   '
+'','totalSize           ','23248               '
+'','transient_lastDdlTime','!!UNIXTIME!!          '
+'','NULL','NULL'
+'# Storage Information','NULL','NULL'
+'SerDe Library:      ','org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe','NULL'
+'InputFormat:        ','org.apache.hadoop.mapred.TextInputFormat','NULL'
+'OutputFormat:       ','org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat','NULL'
+'Compressed:         ','No                  ','NULL'
+'Num Buckets:        ','-1                  ','NULL'
+'Bucket Columns:     ','[]                  ','NULL'
+'Sort Columns:       ','[]                  ','NULL'
+'Storage Desc Params:','NULL','NULL'
+'','serialization.format','1                   '
+38 rows selected 
+>>>  describe formatted srcpart.key;
+'col_name','data_type','comment'
+'# col_name            ','data_type           ','comment             '
+'','NULL','NULL'
+'key                 ','string              ','from deserializer   '
+3 rows selected 
+>>>  describe formatted srcpart PARTITION(ds='2008-04-08', hr='12');
+'col_name','data_type','comment'
+'# col_name            ','data_type           ','comment             '
+'','NULL','NULL'
+'key                 ','string              ','None                '
+'value               ','string              ','None                '
+'','NULL','NULL'
+'# Partition Information','NULL','NULL'
+'# col_name            ','data_type           ','comment             '
+'','NULL','NULL'
+'ds                  ','string              ','None                '
+'hr                  ','string              ','None                '
+'','NULL','NULL'
+'# Detailed Partition Information','NULL','NULL'
+'Partition Value:    ','[2008-04-08, 12]    ','NULL'
+'Database:           ','describe_table      ','NULL'
+'Table:              ','srcpart             ','NULL'
+'CreateTime:         ','!!TIMESTAMP!!','NULL'
+'LastAccessTime:     ','UNKNOWN             ','NULL'
+'Protect Mode:       ','None                ','NULL'
+'Location:           ','!!{hive.metastore.warehouse.dir}!!/describe_table.db/srcpart/ds=2008-04-08/hr=12','NULL'
+'Partition Parameters:','NULL','NULL'
+'','numFiles            ','1                   '
+'','numRows             ','0                   '
+'','rawDataSize         ','0                   '
+'','totalSize           ','5812                '
+'','transient_lastDdlTime','!!UNIXTIME!!          '
+'','NULL','NULL'
+'# Storage Information','NULL','NULL'
+'SerDe Library:      ','org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe','NULL'
+'InputFormat:        ','org.apache.hadoop.mapred.TextInputFormat','NULL'
+'OutputFormat:       ','org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat','NULL'
+'Compressed:         ','No                  ','NULL'
+'Num Buckets:        ','-1                  ','NULL'
+'Bucket Columns:     ','[]                  ','NULL'
+'Sort Columns:       ','[]                  ','NULL'
+'Storage Desc Params:','NULL','NULL'
+'','serialization.format','1                   '
+36 rows selected 
+>>>  
+>>>  create table srcpart_serdeprops like srcpart;
+No rows affected 
+>>>  alter table srcpart_serdeprops set serdeproperties('xyz'='0');
+No rows affected 
+>>>  alter table srcpart_serdeprops set serdeproperties('pqrs'='1');
+No rows affected 
+>>>  alter table srcpart_serdeprops set serdeproperties('abcd'='2');
+No rows affected 
+>>>  alter table srcpart_serdeprops set serdeproperties('A1234'='3');
+No rows affected 
+>>>  describe formatted srcpart_serdeprops;
+'col_name','data_type','comment'
+'# col_name            ','data_type           ','comment             '
+'','NULL','NULL'
+'key                 ','string              ','None                '
+'value               ','string              ','None                '
+'','NULL','NULL'
+'# Partition Information','NULL','NULL'
+'# col_name            ','data_type           ','comment             '
+'','NULL','NULL'
+'ds                  ','string              ','None                '
+'hr                  ','string              ','None                '
+'','NULL','NULL'
+'# Detailed Table Information','NULL','NULL'
+'Database:           ','describe_table      ','NULL'
+'Owner:              ','!!{user.name}!!','NULL'
+'CreateTime:         ','!!TIMESTAMP!!','NULL'
+'LastAccessTime:     ','UNKNOWN             ','NULL'
+'Protect Mode:       ','None                ','NULL'
+'Retention:          ','0                   ','NULL'
+'Location:           ','!!{hive.metastore.warehouse.dir}!!/describe_table.db/srcpart_serdeprops','NULL'
+'Table Type:         ','MANAGED_TABLE       ','NULL'
+'Table Parameters:','NULL','NULL'
+'','last_modified_by    ','!!{user.name}!!'
+'','last_modified_time  ','!!UNIXTIME!!          '
+'','transient_lastDdlTime','!!UNIXTIME!!          '
+'','NULL','NULL'
+'# Storage Information','NULL','NULL'
+'SerDe Library:      ','org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe','NULL'
+'InputFormat:        ','org.apache.hadoop.mapred.TextInputFormat','NULL'
+'OutputFormat:       ','org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat','NULL'
+'Compressed:         ','No                  ','NULL'
+'Num Buckets:        ','-1                  ','NULL'
+'Bucket Columns:     ','[]                  ','NULL'
+'Sort Columns:       ','[]                  ','NULL'
+'Storage Desc Params:','NULL','NULL'
+'','A1234               ','3                   '
+'','abcd                ','2                   '
+'','pqrs                ','1                   '
+'','serialization.format','1                   '
+'','xyz                 ','0                   '
+39 rows selected 
+>>>  drop table srcpart_serdeprops;
+No rows affected 
+>>>  !record

@@ -200,7 +200,7 @@ public interface HadoopShims {
    * @throws IOException
    * @throws InterruptedException
    */
-  public void doAs(UserGroupInformation ugi, PrivilegedExceptionAction<Void> pvea) throws
+  public <T> T doAs(UserGroupInformation ugi, PrivilegedExceptionAction<T> pvea) throws
     IOException, InterruptedException;
 
   /**

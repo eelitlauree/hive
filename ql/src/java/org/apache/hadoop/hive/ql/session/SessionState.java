@@ -263,7 +263,7 @@ public class SessionState {
           .setVar(HiveConf.ConfVars.HIVESESSIONID, makeSessionId());
     }
 
-    if (startSs.hiveHist == null) {
+    if (startSs.getConf().getBoolean("hive.session.history.enabled", true) && startSs.hiveHist == null) {
       startSs.hiveHist = new HiveHistory(startSs);
     }
 

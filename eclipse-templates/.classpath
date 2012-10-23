@@ -49,10 +49,10 @@
   <classpathentry kind="lib" path="build/ivy/lib/default/avro-@avro.version@.jar"/>
   <classpathentry kind="lib" path="build/ivy/lib/default/avro-mapred-@avro.version@.jar"/>
   <classpathentry kind="lib" path="build/ivy/lib/default/jline-@jline.version@.jar"/>
-  <classpathentry kind="lib" path="build/ivy/lib/default/sqlline-@sqlline.version@.jar"/>
   <classpathentry kind="lib" path="build/ivy/lib/default/json-@json.version@.jar"/>
   <classpathentry kind="lib" path="build/ivy/lib/default/asm-@asm.version@.jar"/>
   <classpathentry kind="lib" path="build/ivy/lib/default/commons-compress-@commons-compress.version@.jar"/>
+  <classpathentry kind="lib" path="build/ivy/lib/default/commons-io-@commons-io.version@.jar"/>
   <classpathentry kind="lib" path="build/ivy/lib/default/commons-lang-@commons-lang.version@.jar"/>
   <classpathentry kind="lib" path="build/ivy/lib/default/commons-logging-@commons-logging.version@.jar"/>
   <classpathentry kind="lib" path="build/ivy/lib/default/commons-logging-api-@commons-logging-api.version@.jar"/>
@@ -110,17 +110,8 @@
   <classpathentry kind="src" path="service/src/gen/thrift/gen-javabean"/>
   <classpathentry kind="src" path="service/src/java"/>
   <classpathentry kind="src" path="service/src/test"/>
-  <classpathentry kind="src" path="jdbc/src/java"/>
-  <classpathentry kind="src" path="jdbc/src/test"/>
   <classpathentry kind="src" path="shims/src/@HADOOPVERPREF@/java"/>
   <classpathentry kind="src" path="shims/src/common/java"/>
-  <classpathentry kind="src" path="hwi/src/java"/>
-  <classpathentry kind="src" path="hwi/src/test"/>
-  <classpathentry kind="src" path="hbase-handler/src/java"/>
-  <classpathentry excluding="queries/|results/|templates/" kind="src" path="hbase-handler/src/test"/>
-  <classpathentry kind="src" path="pdk/src/java"/>
-  <classpathentry kind="src" path="pdk/test-plugin/src"/>
-  <classpathentry kind="src" path="builtins/src"/>
-  <classpathentry kind="src" path="cli/src/test"/>
+  <classpathentry kind="src" path="testutils/src/java"/>
   <classpathentry kind="output" path="build/eclipse-classes"/>
 </classpath>

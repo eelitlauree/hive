@@ -1,0 +1,47 @@
+Saving all output to "!!{outputDirectory}!!/create_like2.q.raw". Enter "record" with no arguments to stop it.
+>>>  !run !!{qFileDirectory}!!/create_like2.q
+>>>  -- Tests the copying over of Table Parameters according to a HiveConf setting
+>>>  -- when doing a CREATE TABLE LIKE.
+>>>  
+>>>  CREATE TABLE table1(a INT, b STRING);
+No rows affected 
+>>>  ALTER TABLE table1 SET TBLPROPERTIES ('a'='1', 'b'='2', 'c'='3', 'd' = '4');
+No rows affected 
+>>>  
+>>>  SET hive.ddl.createtablelike.properties.whitelist=a,c,D;
+No rows affected 
+>>>  CREATE TABLE table2 LIKE table1;
+No rows affected 
+>>>  DESC FORMATTED table2;
+'col_name','data_type','comment'
+'# col_name            ','data_type           ','comment             '
+'','NULL','NULL'
+'a                   ','int                 ','None                '
+'b                   ','string              ','None                '
+'','NULL','NULL'
+'# Detailed Table Information','NULL','NULL'
+'Database:           ','create_like2        ','NULL'
+'Owner:              ','!!{user.name}!!','NULL'
+'CreateTime:         ','!!TIMESTAMP!!','NULL'
+'LastAccessTime:     ','UNKNOWN             ','NULL'
+'Protect Mode:       ','None                ','NULL'
+'Retention:          ','0                   ','NULL'
+'Location:           ','!!{hive.metastore.warehouse.dir}!!/create_like2.db/table2','NULL'
+'Table Type:         ','MANAGED_TABLE       ','NULL'
+'Table Parameters:','NULL','NULL'
+'','a                   ','1                   '
+'','c                   ','3                   '
+'','transient_lastDdlTime','!!UNIXTIME!!          '
+'','NULL','NULL'
+'# Storage Information','NULL','NULL'
+'SerDe Library:      ','org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe','NULL'
+'InputFormat:        ','org.apache.hadoop.mapred.TextInputFormat','NULL'
+'OutputFormat:       ','org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat','NULL'
+'Compressed:         ','No                  ','NULL'
+'Num Buckets:        ','-1                  ','NULL'
+'Bucket Columns:     ','[]                  ','NULL'
+'Sort Columns:       ','[]                  ','NULL'
+'Storage Desc Params:','NULL','NULL'
+'','serialization.format','1                   '
+29 rows selected 
+>>>  !record

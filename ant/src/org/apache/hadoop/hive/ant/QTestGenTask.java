@@ -25,13 +25,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -39,6 +42,7 @@ import org.apache.tools.ant.Task;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -74,7 +78,7 @@ public class QTestGenTask extends Task {
       }
       return true;
     }
-    
+
   }
   
   public class DisabledQFileFilter extends IncludeFilter {
@@ -87,9 +91,9 @@ public class QTestGenTask extends Task {
         return false;
       }
       return !fpath.isDirectory() && fpath.getName().endsWith(".q.disabled");
-    }  
+    }
   }
-  
+
   public class QFileRegexFilter extends QFileFilter {
     Pattern filterPattern;
     
@@ -97,7 +101,8 @@ public class QTestGenTask extends Task {
       super(includeOnly);
       filterPattern = Pattern.compile(filter);
     }
-    
+
+    @Override
     public boolean accept(File filePath) {
       if (!super.accept(filePath)) {
         return false;
@@ -107,19 +112,39 @@ public class QTestGenTask extends Task {
     }
   }
 
-  private List<String> templatePaths = new ArrayList<String>();
-  
+  public class QFileListFileFilter extends QFileFilter {
+    Set<String> listedQfiles;
+
+    public QFileListFileFilter(String listFile, Set<String> includeOnly) throws IOException {
+      super(includeOnly);
+      List<String> filesList = FileUtils.readLines(new File(listFile), (String)null);
+      listedQfiles = new HashSet<String>(filesList);
+    }
+
+    @Override
+    public boolean accept(File filePath) {
+      return listedQfiles.contains(filePath.getName());
+    }
+  }
+
+
+  private final List<String> templatePaths = new ArrayList<String>();
+
+  private String hiveRootDirectory;
+
   private String outputDirectory;
- 
+
   private String queryDirectory;
- 
+
   private String queryFile;
 
   private String includeQueryFile;
 
   private String excludeQueryFile;
-  
+
   private String queryFileRegex;
+
+  private String queryListFile;
 
   private String resultsDirectory;
 
@@ -134,7 +159,7 @@ public class QTestGenTask extends Task {
   private String clusterMode;
 
   private String runDisabled;
-  
+
   private String hadoopVersion;
 
   public void setHadoopVersion(String ver) {
@@ -144,7 +169,7 @@ public class QTestGenTask extends Task {
   public String getHadoopVersion() {
     return hadoopVersion;
   }
-  
+
   public void setClusterMode(String clusterMode) {
     this.clusterMode = clusterMode;
   }
@@ -183,6 +208,18 @@ public class QTestGenTask extends Task {
 
   public String getTemplate() {
     return template;
+  }
+
+  public void setHiveRootDirectory(File hiveRootDirectory) {
+    try {
+      this.hiveRootDirectory = hiveRootDirectory.getCanonicalPath();
+    } catch (IOException ioe) {
+      throw new BuildException(ioe);
+    }
+  }
+
+  public String getHiveRootDirectory() {
+    return hiveRootDirectory;
   }
 
   public void setTemplatePath(String templatePath) throws Exception {
@@ -265,6 +302,15 @@ public class QTestGenTask extends Task {
     return queryFileRegex;
   }
 
+  public void setQueryListFile(String queryListFile) {
+    this.queryListFile = queryListFile;
+  }
+
+  public String getQueryListFile() {
+    return queryListFile;
+  }
+
+  @Override
   public void execute() throws BuildException {
 
     if (getTemplatePath().equals("")) {
@@ -302,10 +348,12 @@ public class QTestGenTask extends Task {
 
     List<File> qFiles = new ArrayList<File>();
     HashMap<String, String> qFilesMap = new HashMap<String, String>();
+    File hiveRootDir = null;
+    File queryDir = null;
     File outDir = null;
     File resultsDir = null;
     File logDir = null;
-    
+
     try {
       File inpDir = null;
       if (queryDirectory != null) {
@@ -329,6 +377,8 @@ public class QTestGenTask extends Task {
             new QFileRegexFilter(queryFileRegex, includeOnly))));
       } else if (runDisabled != null && runDisabled.equals("true")) {
         qFiles.addAll(Arrays.asList(inpDir.listFiles(new DisabledQFileFilter(includeOnly))));
+      } else if (queryListFile != null && !queryListFile.equals("")){
+        qFiles.addAll(Arrays.asList(inpDir.listFiles(new QFileListFileFilter(queryListFile, includeOnly))));
       } else {
         qFiles.addAll(Arrays.asList(inpDir.listFiles(new QFileFilter(includeOnly))));
       }
@@ -343,7 +393,13 @@ public class QTestGenTask extends Task {
           }
         }
       }
-      
+
+      hiveRootDir = new File(hiveRootDirectory);
+      if (!hiveRootDir.exists()) {
+        throw new BuildException("Hive Root Directory "
+            + hiveRootDir.getCanonicalPath() + " does not exist");
+      }
+
       Collections.sort(qFiles);
       for (File qFile : qFiles) {
         qFilesMap.put(qFile.getName(), getEscapedCanonicalPath(qFile));
@@ -360,7 +416,7 @@ public class QTestGenTask extends Task {
       if (!logDir.exists()) {
         throw new BuildException("Log Directory " + logDir.getCanonicalPath() + " does not exist");
       }
-      
+
       resultsDir = new File(resultsDirectory);
       if (!resultsDir.exists()) {
         throw new BuildException("Results Directory " + resultsDir.getCanonicalPath() + " does not exist");
@@ -368,7 +424,7 @@ public class QTestGenTask extends Task {
     } catch (Exception e) {
       throw new BuildException(e);
     }
-    
+
     VelocityEngine ve = new VelocityEngine();
 
     try {
@@ -397,6 +453,7 @@ public class QTestGenTask extends Task {
       // For each of the qFiles generate the test
       VelocityContext ctx = new VelocityContext();
       ctx.put("className", className);
+      ctx.put("hiveRootDir", getEscapedCanonicalPath(hiveRootDir));
       ctx.put("qfiles", qFiles);
       ctx.put("qfilesMap", qFilesMap);
       ctx.put("resultsDir", getEscapedCanonicalPath(resultsDir));
@@ -424,7 +481,7 @@ public class QTestGenTask extends Task {
       throw new BuildException("Generation failed", e);
     }
   }
-  
+
   private static String getEscapedCanonicalPath(File file) throws IOException {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       // Escape the backward slash in CanonicalPath if the unit test runs on windows

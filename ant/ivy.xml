@@ -27,6 +27,7 @@
   </configurations>
   <dependencies>
     <dependency org="commons-lang" name="commons-lang" rev="${commons-lang.version}"/>
+    <dependency org="commons-io" name="commons-io" rev="${commons-io.version}"/>
     <dependency org="velocity" name="velocity" rev="${velocity.version}" transitive="false"/>
   </dependencies>
 </ivy-module>
