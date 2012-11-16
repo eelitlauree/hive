@@ -1055,6 +1055,9 @@ public class Driver implements CommandProcessor {
 
     conf.setVar(HiveConf.ConfVars.HIVEQUERYID, queryId);
     conf.setVar(HiveConf.ConfVars.HIVEQUERYSTRING, queryStr);
+
+    conf.set("mapreduce.workflow.id", "hive_" + queryId);
+
     maxthreads = HiveConf.getIntVar(conf, HiveConf.ConfVars.EXECPARALLETHREADNUMBER);
 
     try {
@@ -1333,6 +1336,9 @@ public class Driver implements CommandProcessor {
       if (noName) {
         conf.setVar(HiveConf.ConfVars.HADOOPJOBNAME, jobname + "(" + tsk.getId() + ")");
       }
+      conf.set("mapreduce.workflow.name", jobname);
+      conf.set("mapreduce.workflow.node.name", tsk.getId());
+      Utilities.setWorkflowAdjacencies(conf, plan);
       cxt.incCurJobNo(1);
       console.printInfo("Launching Job " + cxt.getCurJobNo() + " out of " + jobs);
     }
