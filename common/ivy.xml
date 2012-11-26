@@ -80,6 +80,29 @@
       <exclude org="commons-daemon" module="commons-daemon"/><!--bad POM-->
       <exclude org="org.apache.commons" module="commons-daemon"/><!--bad POM-->
     </dependency>
+    
+    <dependency org="org.apache.hadoop" name="hadoop-core"
+                rev="${hadoop-0.20S.version}"
+                conf="hadoop20S.compile->default" transitive="false">
+      <include type="jar"/>
+      <exclude org="commons-daemon" module="commons-daemon"/><!--bad POM-->
+      <exclude org="org.apache.commons" module="commons-daemon"/><!--bad POM-->
+    </dependency>
+
+    <dependency org="org.apache.hadoop" name="hadoop-test"
+                rev="${hadoop-0.20S.version}"
+                conf="hadoop20S.compile->default" transitive="false">
+      <include type="jar"/>
+      <exclude org="commons-daemon" module="commons-daemon"/><!--bad POM-->
+      <exclude org="org.apache.commons" module="commons-daemon"/><!--bad POM-->
+    </dependency>
+    <dependency org="org.apache.hadoop" name="hadoop-tools"
+                rev="${hadoop-0.20S.version}"
+                conf="hadoop20S.compile->default" transitive="false">
+      <include type="jar"/>
+      <exclude org="commons-daemon" module="commons-daemon"/><!--bad POM-->
+      <exclude org="org.apache.commons" module="commons-daemon"/><!--bad POM-->
+    </dependency>
 
     <dependency org="org.apache.hive" name="hive-shims" rev="${version}"
                 conf="compile->default" transitive="false" />
