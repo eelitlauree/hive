@@ -124,6 +124,8 @@
       <include type="jar"/>
       <exclude org="commons-daemon" module="commons-daemon"/><!--bad POM-->
       <exclude org="org.apache.commons" module="commons-daemon"/><!--bad POM-->
+      <exclude org="org.codehaus.jackson" name="jackson-core-asl"/><!--bad POM-->
+      <exclude org="org.codehaus.jackson" name="jackson-mapper-asl"/><!--bad POM-->
     </dependency>
     <dependency org="org.apache.hadoop" name="hadoop-tools"
                 rev="${hadoop-0.20S.version}"
@@ -131,6 +133,8 @@
       <include type="jar"/>
       <exclude org="commons-daemon" module="commons-daemon"/><!--bad POM-->
       <exclude org="org.apache.commons" module="commons-daemon"/><!--bad POM-->
+      <exclude org="org.codehaus.jackson" name="jackson-core-asl"/><!--bad POM-->
+      <exclude org="org.codehaus.jackson" name="jackson-mapper-asl"/><!--bad POM-->
     </dependency>
     <dependency org="org.apache.hadoop" name="hadoop-test"
                 rev="${hadoop-0.20S.version}"
@@ -138,6 +142,8 @@
       <include type="jar"/>
       <exclude org="commons-daemon" module="commons-daemon"/><!--bad POM-->
       <exclude org="org.apache.commons" module="commons-daemon"/><!--bad POM-->
+      <exclude org="org.codehaus.jackson" name="jackson-core-asl"/><!--bad POM-->
+      <exclude org="org.codehaus.jackson" name="jackson-mapper-asl"/><!--bad POM-->
     </dependency>
 
     <!-- Test Dependencies -->
