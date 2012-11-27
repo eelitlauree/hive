@@ -103,6 +103,7 @@
       <exclude org="commons-daemon" module="commons-daemon"/><!--bad POM-->
       <exclude org="org.apache.commons" module="commons-daemon"/><!--bad POM-->
     </dependency>
+    <dependency org="javax.ws.rs" name="jsr311-api" rev="${jsr311.version}" conf="hadoop20S.test->default" />
 
     <dependency org="org.apache.hive" name="hive-shims" rev="${version}"
                 conf="compile->default" transitive="false" />
