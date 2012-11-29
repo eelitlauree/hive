@@ -44,6 +44,8 @@
     <!-- hadoop specific guava -->
     <dependency org="com.google.guava" name="guava" rev="${guava-hadoop20.version}"
                 conf="hadoop20.compile->default" transitive="false"/>
+    <dependency org="com.google.guava" name="guava" rev="${guava-hadoop20S.version}"
+                conf="hadoop20S.compile->default" transitive="false"/>
     <dependency org="com.google.guava" name="guava" rev="${guava-hadoop23.version}"
                 conf="hadoop23.compile->default" transitive="false"/>
 
