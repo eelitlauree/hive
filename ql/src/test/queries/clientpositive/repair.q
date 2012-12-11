@@ -2,7 +2,7 @@
 
 CREATE TABLE repairtable(col STRING) PARTITIONED BY (p1 STRING, p2 STRING);
 
--- EXCLUDE_HADOOP_MAJOR_VERSIONS(0.20, 0.23)
+-- EXCLUDE_HADOOP_MAJOR_VERSIONS(0.20, 0.20S, 0.23)
 
 -- When you invoke the mkdir command using versions of Hadoop up to and including 0.23,
 -- they behave as if you had specified the -p option,
