@@ -45,7 +45,9 @@
     <dependency org="org.apache.zookeeper" name="zookeeper" rev="${zookeeper.version}"
                 transitive="false"/>
     <dependency org="com.google.protobuf" name="protobuf-java" rev="${protobuf-java.version}" conf="test->default"/>
-    <dependency org="com.yammer.metrics" name="metrics-core" rev="${metrics-core.version}"/>
+    <dependency org="com.yammer.metrics" name="metrics-core" rev="${metrics-core.version}">
+      <exclude org="org.slf4j" module="slf4j-api"/><!--causes a dual slf4j presence otherwise-->
+    </dependency>
     <dependency org="org.codehaus.jackson" name="jackson-jaxrs" rev="${jackson.version}"/>
     <dependency org="org.codehaus.jackson" name="jackson-xc" rev="${jackson.version}"/>
 
